@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THIRAN Class 9 Mathematics Workbook (English Medium)</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #eff6ff;
+      --accent-grade: #059669;
+      --accent-grade-light: #ecfdf5;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --warning: #ca8a04;
+      --warning-bg: #fef9c3;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* Sticky Top Header & Top-Right Progress Bar */
+    .top-header {
+      position: sticky; top: 0; z-index: 100; background: var(--card);
+      border-bottom: 2px solid #e2e8f0; padding: 10px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04); gap: 15px; flex-wrap: wrap;
+    }
+    .header-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .gov-badge {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb); color: white; font-weight: 800;
+      padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; letter-spacing: 0.5px;
+    }
+    .student-badge { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+    .student-badge strong { color: var(--text); }
+    .btn-switch-user {
+      background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca;
+      padding: 6px 12px; border-radius: 6px; font-size: 0.82rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-switch-user:hover { background: #fecaca; }
+
+    /* Top-Right Visual Progress Bar */
+    .progress-widget {
+      display: flex; align-items: center; gap: 18px;
+      background: #f1f5f9; padding: 8px 16px; border-radius: 12px;
+      border: 1px solid #cbd5e1;
+    }
+    .stat-item { font-size: 0.83rem; color: var(--muted); font-weight: 600; }
+    .stat-item strong { color: var(--primary-dark); font-size: 0.92rem; }
+    .progress-container { width: 170px; }
+    .progress-label {
+      display: flex; justify-content: space-between; font-size: 0.76rem;
+      font-weight: 700; margin-bottom: 4px; color: var(--text);
+    }
+    .progress-track {
+      width: 100%; height: 10px; background: #cbd5e1;
+      border-radius: 999px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; width: 0%; background: linear-gradient(90deg, #2563eb, #16a34a);
+      transition: width 0.4s ease;
+    }
+
+    /* Welcome / Login Overlay Screen */
+    #welcome-screen {
+      position: fixed; inset: 0; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px;
+      overflow-y: auto;
+    }
+    .welcome-card {
+      background: var(--card); max-width: 580px; width: 100%; border-radius: 16px;
+      padding: 28px 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.45); margin: auto;
+    }
+    .welcome-card h1 { margin: 0 0 6px; color: var(--primary); font-size: 1.4rem; }
+    .welcome-card p.sub { margin: 0 0 18px; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+
+    /* Mode Tabs */
+    .auth-tabs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+      background: #f1f5f9; padding: 5px; border-radius: 10px; margin-bottom: 18px;
+    }
+    .tab-btn {
+      padding: 10px; border: none; border-radius: 7px; font-weight: 700;
+      font-size: 0.88rem; cursor: pointer; background: transparent; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .tab-btn.active { background: var(--card); color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { margin-bottom: 10px; }
+    .form-group.full { grid-column: span 2; }
+    .form-group label { display: block; font-size: 0.83rem; font-weight: 700; margin-bottom: 5px; color: #334155; }
+    .form-group input, .form-group select {
+      width: 100%; padding: 10px 12px; border: 2px solid #cbd5e1; border-radius: 8px;
+      font-size: 0.94rem; transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); }
+    .btn-primary {
+      width: 100%; background: var(--primary); color: white; border: none;
+      padding: 12px; border-radius: 8px; font-size: 0.96rem; font-weight: 700;
+      cursor: pointer; transition: background 0.2s; margin-top: 6px;
+    }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .error-msg {
+      background: var(--danger-bg); color: var(--danger); padding: 10px 12px;
+      border-radius: 8px; font-size: 0.85rem; font-weight: 700; margin-bottom: 12px; display: none;
+    }
+
+    /* Saved Profiles List */
+    .saved-profiles-box {
+      margin-top: 18px; border-top: 1px solid #e2e8f0; padding-top: 14px;
+    }
+    .saved-profiles-title {
+      font-size: 0.78rem; font-weight: 800; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px; letter-spacing: 0.5px;
+    }
+    .profile-pill {
+      display: flex; justify-content: space-between; align-items: center;
+      background: #f8fafc; border: 1px solid #cbd5e1; padding: 9px 12px;
+      border-radius: 8px; margin-bottom: 6px; cursor: pointer; transition: all 0.15s;
+    }
+    .profile-pill:hover { border-color: var(--primary); background: var(--primary-light); }
+    .profile-pill-info { font-size: 0.86rem; }
+    .profile-pill-info strong { color: var(--text); }
+    .profile-pill-meta { font-size: 0.78rem; color: var(--primary); font-weight: 700; }
+
+    /* Workspace Layout */
+    .workspace { display: flex; flex: 1; }
+    .sidebar {
+      width: 320px; background: var(--card); border-right: 1px solid #e2e8f0;
+      padding: 14px; overflow-y: auto; max-height: calc(100vh - 64px);
+      position: sticky; top: 64px;
+    }
+    .sidebar-section-title {
+      font-size: 0.74rem; letter-spacing: 0.5px;
+      color: white; background: var(--primary); padding: 6px 10px; border-radius: 6px;
+      font-weight: 800; margin: 8px 0 6px 0;
+    }
+    .sidebar-section-title.grade-lvl {
+      background: var(--accent-grade); margin-top: 14px;
+    }
+    .nav-btn {
+      width: 100%; padding: 8px 10px; border: none; background: transparent;
+      text-align: left; border-radius: 7px; cursor: pointer; font-size: 0.84rem;
+      font-weight: 600; color: #475569; display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 2px; transition: all 0.15s;
+    }
+    .nav-btn:hover { background: #f1f5f9; }
+    .nav-btn.active { background: var(--primary-light); color: var(--primary-dark); font-weight: 800; }
+    .nav-btn.cert-btn {
+      background: linear-gradient(135deg, #0f2557, #1e3a8a); color: #fde047;
+      border: 1px solid #eab308; margin-top: 12px; padding: 11px 12px; font-weight: 800; font-size: 0.86rem;
+    }
+    .nav-btn.cert-btn:hover { opacity: 0.95; }
+    .nav-btn.cert-btn.active { background: linear-gradient(135deg, #071330, #172554); color: #facc15; box-shadow: 0 0 0 2px #eab308; }
+    .star { color: #cbd5e1; font-size: 1rem; }
+    .star.earned { color: #facc15; text-shadow: 0 0 2px rgba(0,0,0,0.4); }
+
+    /* Main Content Area */
+    .main { flex: 1; padding: 28px 36px; max-width: 980px; margin: 0 auto; }
+    .module-card {
+      background: var(--card); padding: 28px; border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.06); display: none;
+    }
+    .module-card.active { display: block; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    .mod-header-row {
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;
+    }
+    .mod-header-row h2 { margin: 0; color: var(--primary); border: none; padding: 0; font-size: 1.35rem; }
+    .set-badge {
+      background: var(--primary-light); color: var(--primary-dark); font-size: 0.76rem;
+      font-weight: 700; padding: 5px 10px; border-radius: 99px;
+    }
+    .grade-tag {
+      background: var(--accent-grade-light); color: #047857; font-size: 0.74rem;
+      font-weight: 800; padding: 4px 9px; border-radius: 6px;
+    }
+
+    .question-block {
+      background: #f8fafc; border: 1px solid #e2e8f0; padding: 18px;
+      border-radius: 8px; margin-bottom: 18px;
+    }
+    .question-title { font-weight: 700; margin-bottom: 8px; display: block; color: #1e293b; line-height: 1.5; }
+    .passage {
+      background: #eff6ff; border-left: 4px solid var(--primary);
+      padding: 14px; margin-bottom: 16px; line-height: 1.7; border-radius: 0 8px 8px 0; font-size: 0.93rem;
+    }
+    .q-input {
+      padding: 8px 12px; border: 2px solid #cbd5e1; border-radius: 6px;
+      font-size: 0.94rem; min-width: 240px; max-width: 100%; margin: 3px 0;
+    }
+    .q-input:focus { outline: none; border-color: var(--primary); }
+    .correct-input { border-color: var(--success) !important; background-color: var(--success-bg) !important; }
+    .wrong-input { border-color: var(--danger) !important; background-color: var(--danger-bg) !important; }
+
+    .btn-check {
+      background: var(--primary); color: white; border: none; padding: 11px 22px;
+      border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer;
+    }
+    .btn-check:hover { background: var(--primary-dark); }
+    .btn-gold-download {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #09152b; border: 2px solid #fde047; padding: 11px 20px;
+      border-radius: 8px; font-size: 0.92rem; font-weight: 800; cursor: pointer;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3); transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-gold-download:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(217, 119, 6, 0.45); }
+    .btn-secondary {
+      background: #e2e8f0; color: #1e293b; border: none; padding: 10px 16px;
+      border-radius: 8px; font-size: 0.88rem; font-weight: 600; cursor: pointer; margin-left: 8px;
+    }
+    .btn-shuffle {
+      background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 10px 14px;
+      border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; margin-left: 8px;
+    }
+    .btn-shuffle:hover { background: #e2e8f0; color: var(--text); }
+    .feedback { margin-top: 15px; font-weight: 700; padding: 12px; border-radius: 8px; display: none; line-height: 1.5; }
+
+    /* ============================================================
+       Certificate Styling
+       ============================================================ */
+    .certificate-frame {
+      background: radial-gradient(circle at center, #1e3a8a 0%, #0f2557 55%, #071330 100%);
+      border: 6px solid #d4af37;
+      outline: 2px solid #fef08a;
+      outline-offset: -12px;
+      padding: 26px 26px 20px;
+      border-radius: 12px;
+      text-align: center;
+      position: relative;
+      margin-bottom: 16px;
+      box-shadow: 0 14px 32px rgba(7, 19, 48, 0.4), inset 0 0 50px rgba(250, 204, 21, 0.1);
+      color: #fef08a;
+      overflow: hidden;
+    }
+    .certificate-frame::before, .certificate-frame::after {
+      content: "✦"; position: absolute; top: 14px; font-size: 1.35rem; color: #facc15;
+    }
+    .certificate-frame::before { left: 20px; }
+    .certificate-frame::after { right: 20px; }
+
+    .cert-emblem {
+      width: 50px; height: 50px; margin: 0 auto 6px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fef08a 0%, #eab308 60%, #a16207 100%);
+      border: 2.5px solid #fffbeb;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: #071330;
+      box-shadow: 0 0 16px rgba(250, 204, 21, 0.5);
+    }
+    .cert-header {
+      font-size: 0.84rem; font-weight: 800; letter-spacing: 1px;
+      color: #fde047;
+    }
+    .cert-title {
+      font-size: 1.75rem; font-weight: 900; margin: 6px 0 6px;
+      color: #fde047;
+      background: linear-gradient(180deg, #fffbeb 0%, #fde047 45%, #eab308 85%, #ca8a04 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: 0.8px;
+    }
+    .cert-subtitle {
+      margin: 2px 0 5px; color: #fde68a; font-size: 0.88rem;
+    }
+    .cert-student-name {
+      font-size: 1.75rem; font-weight: 900;
+      color: #fef08a;
+      background: linear-gradient(180deg, #ffffff 0%, #fef08a 50%, #f59e0b 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      border-bottom: 2px solid #eab308;
+      display: inline-block; padding: 0 26px 4px; margin: 3px 0 8px;
+    }
+    .cert-details {
+      font-size: 0.92rem; line-height: 1.5; color: #fef9c3;
+      max-width: 680px; margin: 3px auto 10px;
+    }
+    .cert-details strong { color: #facc15; }
+
+    .congrats-banner {
+      background: rgba(250, 204, 21, 0.14); color: #fef08a;
+      border: 1.5px solid #eab308; padding: 9px 14px; border-radius: 8px;
+      font-weight: 700; margin: 8px auto; max-width: 720px;
+      line-height: 1.5; font-size: 0.86rem;
+    }
+
+    .cert-stats-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+      margin: 12px auto; max-width: 660px;
+    }
+    .cert-stat-card {
+      background: rgba(7, 19, 48, 0.7); border: 1.5px solid #eab308;
+      padding: 8px 10px; border-radius: 8px;
+    }
+    .cert-stat-card span {
+      display: block; font-size: 0.68rem; color: #fde68a;
+      font-weight: 700; margin-bottom: 2px;
+    }
+    .cert-stat-card strong { font-size: 1.2rem; color: #facc15; }
+    .cert-dates-line { font-size: 0.76rem; color: #fde68a; margin: 8px 0 0; opacity: 0.92; }
+    .cert-designer-credit {
+      margin-top: 10px; padding-top: 7px;
+      border-top: 1px solid rgba(234, 179, 8, 0.45);
+      font-size: 0.82rem; font-weight: 800; letter-spacing: 1.2px;
+      text-transform: uppercase; color: #facc15;
+    }
+
+    /* Work Log Section */
+    .log-section-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin: 6px 0 6px; flex-wrap: wrap; gap: 6px;
+    }
+    .log-section-header h3 { margin: 0; font-size: 0.98rem; color: #0f2557; }
+    .log-section-header p { margin: 0; color: var(--muted); font-size: 0.78rem; }
+
+    .log-grid-two-col {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .log-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; text-align: left; }
+    .log-table th, .log-table td { border: 1px solid #cbd5e1; padding: 4.5px 6px; }
+    .log-table th { background: #0f2557; color: #fde047; font-weight: 700; font-size: 0.7rem; }
+    .log-table tr:nth-child(even) { background: #f8fafc; }
+    .badge-done { background: var(--success-bg); color: var(--success); padding: 1.5px 6px; border-radius: 99px; font-weight: 700; font-size: 0.68rem; display: inline-block; }
+    .badge-pending { background: #f1f5f9; color: var(--muted); padding: 1.5px 6px; border-radius: 99px; font-weight: 600; font-size: 0.68rem; display: inline-block; }
+
+    /* Footer */
+    .app-footer {
+      background: #0f172a; color: #fde047; text-align: center;
+      padding: 12px 20px; font-size: 0.86rem; font-weight: 700;
+      letter-spacing: 0.6px; border-top: 2px solid #eab308; margin-top: auto;
+    }
+
+    /* Print Styles */
+    @page {
+      size: A4 portrait;
+      margin: 5mm 7mm;
+    }
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      html, body {
+        width: 100%; height: auto; margin: 0 !important; padding: 0 !important; background: #ffffff !important;
+      }
+      .top-header, .sidebar, .no-print, .app-footer, #welcome-screen, #modules-container {
+        display: none !important;
+      }
+      .workspace, .main {
+        display: block !important; width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important;
+      }
+      #cert-view {
+        display: block !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; border: none !important;
+        page-break-inside: avoid !important; break-inside: avoid !important;
+      }
+      .certificate-frame {
+        padding: 10px 16px 8px !important; margin-bottom: 6px !important;
+        border-width: 4px !important; outline-width: 1.5px !important; outline-offset: -7px !important;
+        border-radius: 8px !important; box-shadow: none !important;
+      }
+      .cert-emblem { width: 30px !important; height: 30px !important; font-size: 0.95rem !important; margin: 0 auto 3px !important; }
+      .cert-header { font-size: 0.64rem !important; }
+      .cert-title {
+        font-size: 1.2rem !important; margin: 2px 0 3px !important;
+        background: none !important; -webkit-text-fill-color: #fde047 !important; color: #fde047 !important; filter: none !important;
+      }
+      .cert-subtitle { font-size: 0.68rem !important; margin: 1px 0 2px !important; }
+      .cert-student-name {
+        font-size: 1.2rem !important; padding: 0 16px 2px !important; margin: 1px 0 4px !important;
+        background: none !important; -webkit-text-fill-color: #ffffff !important; color: #ffffff !important; filter: none !important;
+      }
+      .cert-details { font-size: 0.72rem !important; line-height: 1.3 !important; margin: 2px auto 4px !important; }
+      .congrats-banner { padding: 5px 10px !important; margin: 4px auto !important; font-size: 0.68rem !important; line-height: 1.25 !important; }
+      .cert-stats-grid { gap: 8px !important; margin: 5px auto !important; max-width: 540px !important; }
+      .cert-stat-card { padding: 4px 6px !important; border-radius: 5px !important; }
+      .cert-stat-card span { font-size: 0.55rem !important; }
+      .cert-stat-card strong { font-size: 0.92rem !important; }
+      .cert-dates-line { font-size: 0.62rem !important; margin-top: 4px !important; }
+      .cert-designer-credit { margin-top: 5px !important; padding-top: 3px !important; font-size: 0.64rem !important; }
+
+      .log-section-header { margin: 3px 0 3px !important; }
+      .log-section-header h3 { font-size: 0.76rem !important; }
+      .log-section-header p { font-size: 0.6rem !important; }
+      .log-grid-two-col { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+      .log-table { font-size: 0.6rem !important; }
+      .log-table th, .log-table td { padding: 2.8px 4px !important; line-height: 1.1 !important; }
+      .log-table th { font-size: 0.58rem !important; }
+      .badge-done, .badge-pending { font-size: 0.55rem !important; padding: 1px 4px !important; }
+    }
+
+    @media (max-width: 850px) {
+      .workspace { flex-direction: column; }
+      .sidebar { width: 100%; max-height: none; position: static; }
+      .main { padding: 18px; }
+      .log-grid-two-col { grid-template-columns: 1fr; }
+      .cert-stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Welcome / Login Modal -->
+  <div id="welcome-screen">
+    <div class="welcome-card">
+      <h1>THIRAN Class 9 Mathematics (English Medium)</h1>
+      <p class="sub">Featuring <strong>Part 1: Fundamental Concepts (1–15)</strong>[cite: 214, 216] and <strong>Part 2: Grade Level Concepts (16–25)</strong>[cite: 214, 251]. Enter your <strong>Roll Number &amp; School Name</strong> to start or resume your practice!</p>
+
+      <div class="auth-tabs">
+        <button type="button" class="tab-btn active" id="tab-login-btn" onclick="switchAuthTab('login')">🔄 Resume Session</button>
+        <button type="button" class="tab-btn" id="tab-reg-btn" onclick="switchAuthTab('register')">✨ New Student Registration</button>
+      </div>
+
+      <div id="auth-error" class="error-msg"></div>
+
+      <!-- Login Form -->
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="login-roll">Roll Number *</label>
+            <input type="text" id="login-roll" required placeholder="e.g. 901">
+          </div>
+          <div class="form-group">
+            <label for="login-school">School Name *</label>
+            <input type="text" id="login-school" required placeholder="e.g. Govt Higher Sec School">
+          </div>
+        </div>
+        <button type="submit" class="btn-primary">Continue Practice &rarr;</button>
+
+        <div class="saved-profiles-box" id="saved-profiles-container" style="display:none;">
+          <div class="saved-profiles-title">📂 Or select your saved profile below:</div>
+          <div id="saved-profiles-list"></div>
+        </div>
+      </form>
+
+      <!-- Registration Form -->
+      <form id="register-form" style="display:none;" onsubmit="handleRegister(event)">
+        <div class="form-grid">
+          <div class="form-group full">
+            <label for="reg-name">Student Full Name *</label>
+            <input type="text" id="reg-name" required placeholder="e.g. Justin Mason">
+          </div>
+          <div class="form-group">
+            <label for="reg-class">Class *</label>
+            <select id="reg-class" required>
+              <option value="Class 9" selected>Class 9</option>
+              <option value="Class 8">Class 8</option>
+              <option value="Class 7">Class 7</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="reg-sec">Section *</label>
+            <input type="text" id="reg-sec" required placeholder="e.g. A">
+          </div>
+          <div class="form-group">
+            <label for="reg-roll">Roll Number *</label>
+            <input type="text" id="reg-roll" required placeholder="e.g. 901">
+          </div>
+          <div class="form-group">
+            <label for="reg-school">School Name *</label>
+            <input type="text" id="reg-school" required placeholder="e.g. Govt Higher Sec School">
+          </div>
+        </div>
+        <button type="submit" class="btn-primary">Register &amp; Start Practice &rarr;</button>
+      </form>
+      <div style="text-align:center; margin-top:16px; font-size:0.8rem; color:#64748b; font-weight:700;">
+        Designed by Thiraviya Kumar G
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Top Header -->
+  <header class="top-header">
+    <div class="header-left">
+      <div class="gov-badge">THIRAN Mathematics - Class 9 (EM)</div>
+      <div class="student-badge" id="header-student-info">Not Logged In</div>
+      <button class="btn-switch-user" onclick="logoutCurrentStudent()">🔄 Switch Student</button>
+    </div>
+
+    <div class="progress-widget">
+      <div class="stat-item">⭐ Modules: <strong id="hdr-modules">0 / 25</strong></div>
+      <div class="stat-item">⏱️ Time: <strong id="hdr-timer">0m 0s</strong></div>
+      <div class="progress-container">
+        <div class="progress-label">
+          <span>Mastery Progress</span>
+          <span id="hdr-percent">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="hdr-bar"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <div class="workspace">
+    <aside class="sidebar">
+      <div class="sidebar-section-title">Part 1: Fundamental Concepts (1–15)[cite: 214, 216]</div>
+      <div id="nav-list-fundamental"></div>
+
+      <div class="sidebar-section-title grade-lvl">Part 2: Grade Level Concepts (16–25)[cite: 214, 251]</div>
+      <div id="nav-list-grade"></div>
+
+      <button class="nav-btn cert-btn" id="btn-cert-nav" onclick="showCertificate()">
+        <span>🎓 A4 Certificate &amp; Work Log</span>
+        <span>&rarr;</span>
+      </button>
+    </aside>
+
+    <main class="main">
+      <div id="modules-container"></div>
+
+      <!-- Certificate & Work Log View -->
+      <div class="module-card" id="cert-view">
+        <div class="no-print" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+          <h2 style="margin:0; border:none;">🎓 Certificate of Completion &amp; Daily Work Log (A4)</h2>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <button class="btn-gold-download" onclick="downloadA4PortraitSheet()">⬇️ Download A4 Certificate &amp; Log (PNG)</button>
+            <button class="btn-check" onclick="window.print()">🖨️ Print / Save 1-Page A4 PDF</button>
+            <button class="btn-secondary" style="margin-left:0;" onclick="resetCurrentStudent()">🗑️ Reset My Progress</button>
+          </div>
+        </div>
+
+        <!-- Certificate Frame -->
+        <div class="certificate-frame" id="certificate-box">
+          <div class="cert-emblem">🏆</div>
+          <div class="cert-header">Department of School Education • Government of Tamil Nadu (THIRAN - Class 9 Maths)</div>
+          <div class="cert-title">Certificate of Mastery &amp; Completion</div>
+          <p class="cert-subtitle">This certificate is proudly presented to</p>
+          <div class="cert-student-name" id="cert-name">Student Name</div>
+          <div class="cert-details" id="cert-meta">
+            Class &amp; Section • Roll Number • School Name
+          </div>
+
+          <div class="congrats-banner" id="cert-congrats">
+            Keep up the great work! Complete all 25 modules to achieve 100% mastery!
+          </div>
+
+          <div class="cert-stats-grid">
+            <div class="cert-stat-card">
+              <span>Overall Mastery Percentage</span>
+              <strong id="cert-mastery">0%</strong>
+            </div>
+            <div class="cert-stat-card">
+              <span>Total Study Time</span>
+              <strong id="cert-duration">0m 0s</strong>
+            </div>
+            <div class="cert-stat-card">
+              <span>Completed Modules</span>
+              <strong id="cert-mod-count">0 / 25</strong>
+            </div>
+          </div>
+
+          <p class="cert-dates-line" id="cert-span-dates">
+            Started Date: -- | Last Active: --
+          </p>
+
+          <div class="cert-designer-credit">
+            ✦ Designed by Thiraviya Kumar G ✦
+          </div>
+        </div>
+
+        <!-- Daily Work Log Tables -->
+        <div class="log-section-header">
+          <h3>📅 Daily Work Log ("I Can... I Will..." - 25 Modules)[cite: 215]</h3>
+          <p>Formatted to fit cleanly onto a single A4 portrait page for review.</p>
+        </div>
+        <div class="log-grid-two-col">
+          <table class="log-table">
+            <thead>
+              <tr>
+                <th>Part 1: Fundamental Concepts (1–15)[cite: 214, 216]</th>
+                <th>Status</th>
+                <th>Score</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="log-table-left"></tbody>
+          </table>
+          <table class="log-table">
+            <thead>
+              <tr>
+                <th>Part 2: Grade Level Concepts (16–25)[cite: 214, 251]</th>
+                <th>Status</th>
+                <th>Score</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="log-table-right"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    THIRAN Class 9 Mathematics (English Medium) Workbook Platform • Designed by Thiraviya Kumar G
+  </footer>
+
+  <script>
+    const QUESTIONS_PER_MODULE = 5;
+
+    // ============================================================================
+    // COMPLETE CLASS 9 MATHEMATICS (EM) QUESTION BANK: 25 MODULES
+    // ============================================================================
+    const MODULES_DATA = [
+      // --- Part 1: Fundamental Concepts (1–15) ---
+      {
+        id: 1, category: "fundamental", title: "1. Numbers and place value",
+        desc: "Place values, expanded form, simplified form, and large numbers[cite: 216].",
+        passage: "Key Note (Page 5): Expanded form of 826 is 800 + 20 + 6. Simplified form of 5000 + 300 + 40 + 7 is 5347. The smallest eight digit number is 1,00,00,000[cite: 220].",
+        questionPool: [
+          { id: "m1q1", q: "What is the expanded form of 826?[cite: 220]", type: "select", options: ["800 + 20 + 6", "80 + 20 + 6", "800 + 60 + 2"], ans: "800 + 20 + 6" },
+          { id: "m1q2", q: "What is the simplified form of 5000 + 300 + 40 + 7?[cite: 220]", type: "select", options: ["5347", "5437", "3547"], ans: "5347" },
+          { id: "m1q3", q: "What is the smallest eight-digit number?[cite: 220]", type: "select", options: ["1,00,00,000", "99,99,999", "10,00,000"], ans: "1,00,00,000" },
+          { id: "m1q4", q: "What is the simplified form of 300000 + 7000 + 500 + 80 + 1?[cite: 220]", type: "select", options: ["307581", "375081", "3007581"], ans: "307581" },
+          { id: "m1q5", q: "Find the number having 2 thousands, 3 hundreds, 6 tens and 4 ones[cite: 220].", type: "select", options: ["2364", "2634", "3264"], ans: "2364" }
+        ]
+      },
+      {
+        id: 2, category: "fundamental", title: "2. Comparison of numbers",
+        desc: "Comparing numbers using symbols (<, >, =), biggest/smallest numbers, predecessor, and successor[cite: 216].",
+        passage: "Key Note (Page 6-8): Numbers can be compared using symbols like <, >, =. The number that comes just before a given number is its predecessor, and the number just after is its successor[cite: 221, 222].",
+        questionPool: [
+          { id: "m2q1", q: "Compare and put appropriate symbol: 12 ______ 14[cite: 221]", type: "select", options: ["<", ">", "="], ans: "<" },
+          { id: "m2q2", q: "Compare and put appropriate symbol: 61 ______ 16[cite: 221]", type: "select", options: [">", "<", "="], ans: ">" },
+          { id: "m2q3", q: "Circle the biggest number among 6735, 4378, 6753, 4387[cite: 221].", type: "select", options: ["6753", "6735", "4387"], ans: "6753" },
+          { id: "m2q4", q: "Circle the smallest number among 8427, 8472, 8724, 8742[cite: 221].", type: "select", options: ["8427", "8472", "8724"], ans: "8427" },
+          { id: "m2q5", q: "What is the predecessor of 2741?[cite: 222]", type: "select", options: ["2740", "2742", "2739"], ans: "2740" }
+        ]
+      },
+      {
+        id: 3, category: "fundamental", title: "3. Addition",
+        desc: "Adding 2-digit, 3-digit, and multi-digit numbers[cite: 216].",
+        passage: "Key Note (Page 9): Align numbers according to their place values and start adding from the ones column.",
+        questionPool: [
+          { id: "m3q1", q: "Add: 45 + 33 = ?[cite: 223]", type: "select", options: ["78", "88", "77"], ans: "78" },
+          { id: "m3q2", q: "Add: 233 + 125 = ?[cite: 223]", type: "select", options: ["358", "348", "368"], ans: "358" },
+          { id: "m3q3", q: "Add: 3257 + 3421 = ?[cite: 223]", type: "select", options: ["6678", "6578", "6778"], ans: "6678" },
+          { id: "m3q4", q: "Add: 28 + 25 = ?[cite: 224]", type: "select", options: ["53", "43", "63"], ans: "53" },
+          { id: "m3q5", q: "Add: 124 + 118 = ?[cite: 224]", type: "select", options: ["242", "232", "252"], ans: "242" }
+        ]
+      },
+      {
+        id: 4, category: "fundamental", title: "4. Subtraction",
+        desc: "Subtracting multi-digit numbers with regrouping[cite: 216].",
+        passage: "Key Note (Page 11): Subtract column by column starting from ones, borrowing from adjacent columns when necessary.",
+        questionPool: [
+          { id: "m4q1", q: "Subtract: 35 - 17 = ?[cite: 225]", type: "select", options: ["18", "16", "19"], ans: "18" },
+          { id: "m4q2", q: "Subtract: 374 - 125 = ?[cite: 225]", type: "select", options: ["249", "259", "239"], ans: "249" },
+          { id: "m4q3", q: "Subtract: 3769 - 1457 = ?[cite: 225]", type: "select", options: ["2312", "2212", "2412"], ans: "2312" },
+          { id: "m4q4", q: "Subtract: 54 - 25 = ?[cite: 226]", type: "select", options: ["29", "39", "19"], ans: "29" },
+          { id: "m4q5", q: "Subtract: 533 - 347 = ?[cite: 226]", type: "select", options: ["186", "176", "196"], ans: "186" }
+        ]
+      },
+      {
+        id: 5, category: "fundamental", title: "5. Multiplication",
+        desc: "Multiplication tables and multi-digit multiplication[cite: 216].",
+        passage: "Key Note (Page 13): Basic multiplication facts include 8 x 2 = 16, 9 x 3 = 27.",
+        questionPool: [
+          { id: "m5q1", q: "Find the product: 8 x 2 = ?[cite: 227]", type: "select", options: ["16", "18", "14"], ans: "16" },
+          { id: "m5q2", q: "Find the product: 9 x 3 = ?[cite: 227]", type: "select", options: ["27", "24", "30"], ans: "27" },
+          { id: "m5q3", q: "Multiply: 72 x 4 = ?[cite: 227]", type: "select", options: ["288", "278", "298"], ans: "288" },
+          { id: "m5q4", q: "Multiply: 25 x 15 = ?[cite: 227]", type: "select", options: ["375", "350", "400"], ans: "375" },
+          { id: "m5q5", q: "Multiply: 634 x 75 = ?[cite: 228]", type: "select", options: ["47550", "46550", "48550"], ans: "47550" }
+        ]
+      },
+      {
+        id: 6, category: "fundamental", title: "6. Square numbers",
+        desc: "Identifying perfect squares and square calculations[cite: 216].",
+        passage: "Key Note (Page 15): A square number is obtained by multiplying a number by itself. For example, square of 7 is 49. 36 is the square of 6[cite: 230].",
+        questionPool: [
+          { id: "m6q1", q: "What is the square number of 7?[cite: 230]", type: "select", options: ["49", "42", "56"], ans: "49" },
+          { id: "m6q2", q: "64 is the square number of which number?[cite: 230]", type: "select", options: ["8", "7", "9"], ans: "8" },
+          { id: "m6q3", q: "What is the square number of 9?[cite: 230]", type: "select", options: ["81", "72", "99"], ans: "81" },
+          { id: "m6q4", q: "144 is the square number of which number?[cite: 230]", type: "select", options: ["12", "11", "14"], ans: "12" },
+          { id: "m6q5", q: "Circle the perfect square among 15, 36, 48, 80[cite: 230].", type: "select", options: ["36", "15", "48"], ans: "36" }
+        ]
+      },
+      {
+        id: 7, category: "fundamental", title: "7. Least Common Multiple (LCM)",
+        desc: "Multiples, common multiples, and finding LCM[cite: 216].",
+        passage: "Key Note (Page 17): The Least Common Multiple (LCM) is the smallest positive number that is a multiple of two or more numbers.",
+        questionPool: [
+          { id: "m7q1", q: "Which number is NOT a multiple of 2?[cite: 231]", type: "select", options: ["5", "2", "4"], ans: "5" },
+          { id: "m7q2", q: "What are the multiples of 3?[cite: 231]", type: "select", options: ["3, 6, 9, 12...", "2, 4, 6, 8...", "5, 10, 15..."], ans: "3, 6, 9, 12..." },
+          { id: "m7q3", q: "What is the first common multiple of 2 and 3?[cite: 231]", type: "select", options: ["6", "12", "18"], ans: "6" },
+          { id: "m7q4", q: "Find the LCM of 4 and 5[cite: 232].", type: "select", options: ["20", "9", "40"], ans: "20" },
+          { id: "m7q5", q: "Find the LCM of 5 and 8[cite: 232].", type: "select", options: ["40", "13", "45"], ans: "40" }
+        ]
+      },
+      {
+        id: 8, category: "fundamental", title: "8. Division",
+        desc: "Division, finding quotient and remainder[cite: 216].",
+        passage: "Key Note (Page 19): Dividing a number gives a quotient and a remainder.",
+        questionPool: [
+          { id: "m8q1", q: "Evaluate: 32 ÷ 4 = ?[cite: 233]", type: "select", options: ["8", "6", "7"], ans: "8" },
+          { id: "m8q2", q: "Evaluate: 45 ÷ 3 = ?[cite: 233]", type: "select", options: ["15", "12", "14"], ans: "15" },
+          { id: "m8q3", q: "Evaluate: 28 ÷ 2 = ?[cite: 233]", type: "select", options: ["14", "12", "16"], ans: "14" },
+          { id: "m8q4", q: "Find quotient and remainder for 140 ÷ 6[cite: 233].", type: "select", options: ["Quotient = 23, Remainder = 2", "Quotient = 22, Remainder = 4", "Quotient = 24, Remainder = 1"], ans: "Quotient = 23, Remainder = 2" },
+          { id: "m8q5", q: "Evaluate: 2480 ÷ 16 = ?[cite: 234]", type: "select", options: ["155", "150", "160"], ans: "155" }
+        ]
+      },
+      {
+        id: 9, category: "fundamental", title: "9. Highest Common Factor (HCF)",
+        desc: "Factors, common factors, and finding HCF[cite: 216].",
+        passage: "Key Note (Page 21): The Highest Common Factor (HCF) is the largest positive integer that divides each of the numbers without a remainder.",
+        questionPool: [
+          { id: "m9q1", q: "What are the factors of 20?[cite: 235]", type: "select", options: ["1, 2, 4, 5, 10, 20", "1, 3, 5, 10, 20", "2, 4, 6, 8, 10"], ans: "1, 2, 4, 5, 10, 20" },
+          { id: "m9q2", q: "Which of the following is NOT a factor of 24?[cite: 235]", type: "select", options: ["5", "1", "2", "3"], ans: "5" },
+          { id: "m9q3", q: "What are the common factors of 8 and 12?[cite: 235]", type: "select", options: ["1, 2, 4", "1, 2, 3, 4", "2, 4, 8"], ans: "1, 2, 4" },
+          { id: "m9q4", q: "Find the HCF of 15 and 25[cite: 236].", type: "select", options: ["5", "1", "3"], ans: "5" },
+          { id: "m9q5", q: "Find the HCF of 20 and 28[cite: 236].", type: "select", options: ["4", "2", "5"], ans: "4" }
+        ]
+      },
+      {
+        id: 10, category: "fundamental", title: "10. Divisibility",
+        desc: "Divisibility tests for 2, 3, 4, 5, 9, 11[cite: 216].",
+        passage: "Key Note (Page 23): A number is divisible by 2 if its units digit is 0, 2, 4, 6, or 8. It is divisible by 3 if the sum of its digits is a multiple of 3.",
+        questionPool: [
+          { id: "m10q1", q: "Which of the following numbers is divisible by 2?[cite: 237]", type: "select", options: ["48", "35", "41"], ans: "48" },
+          { id: "m10q2", q: "Which of the following numbers is divisible by 3?[cite: 237]", type: "select", options: ["75", "46", "64"], ans: "75" },
+          { id: "m10q3", q: "Which of the following numbers is divisible by 5?[cite: 237]", type: "select", options: ["45", "31", "41"], ans: "45" },
+          { id: "m10q4", q: "The number 94 is divisible by which number?[cite: 238]", type: "select", options: ["2", "3", "5"], ans: "2" },
+          { id: "m10q5", q: "The number 381 is divisible by which number?[cite: 238]", type: "select", options: ["3", "2", "5"], ans: "3" }
+        ]
+      },
+      {
+        id: 11, category: "fundamental", title: "11. Number system",
+        desc: "Prime numbers, composite numbers, odd and even numbers[cite: 216].",
+        passage: "Key Note (Page 25): Prime numbers have only two factors (1 and itself). The number 1 is neither prime nor composite.",
+        questionPool: [
+          { id: "m11q1", q: "Circle the prime number: 27, 23, 34, 41[cite: 240]", type: "select", options: ["23", "27", "34"], ans: "23" },
+          { id: "m11q2", q: "Circle the composite number: 33, 46, 59, 71[cite: 240]", type: "select", options: ["33", "59", "71"], ans: "33" },
+          { id: "m11q3", q: "Write composite numbers between 20 and 30[cite: 240].", type: "select", options: ["21, 22, 24, 25, 26, 27", "23, 29", "21, 23, 29"], ans: "21, 22, 24, 25, 26, 27" },
+          { id: "m11q4", q: "Is 1 a prime or composite number?[cite: 240]", type: "select", options: ["Neither prime nor composite", "Prime", "Composite"], ans: "Neither prime nor composite" },
+          { id: "m11q5", q: "What is the smallest whole number?[cite: 241]", type: "select", options: ["0", "1", "-1"], ans: "0" }
+        ]
+      },
+      {
+        id: 12, category: "fundamental", title: "12. Operations on integers",
+        desc: "Addition, subtraction, multiplication, and division of integers[cite: 216].",
+        passage: "Key Note (Page 27): Rules for integers: (+) × (+) = +, (-) × (-) = +, (+) × (-) = -.",
+        questionPool: [
+          { id: "m12q1", q: "Evaluate: 15 + (-7) = ?[cite: 242]", type: "select", options: ["8", "-8", "22"], ans: "8" },
+          { id: "m12q2", q: "Evaluate: (-29) + (-16) = ?[cite: 242]", type: "select", options: ["-45", "45", "-13"], ans: "-45" },
+          { id: "m12q3", q: "Evaluate: 8 - (-12) = ?[cite: 242]", type: "select", options: ["20", "-4", "-20"], ans: "20" },
+          { id: "m12q4", q: "Evaluate: (-10) × (-7) = ?[cite: 242]", type: "select", options: ["70", "-70", "-17"], ans: "70" },
+          { id: "m12q5", q: "Evaluate: (-65) ÷ (-13) = ?[cite: 242]", type: "select", options: ["5", "-5", "13"], ans: "5" }
+        ]
+      },
+      {
+        id: 13, category: "fundamental", title: "13. Fractions and decimal numbers",
+        desc: "Proper and improper fractions, decimals[cite: 216].",
+        passage: "Key Note (Page 28): A fraction with a numerator smaller than its denominator is a proper fraction. If the numerator is greater, it is an improper fraction.",
+        questionPool: [
+          { id: "m13q1", q: "If the numerator is smaller than the denominator, it is called a ______ fraction[cite: 243].", type: "select", options: ["proper", "improper", "mixed"], ans: "proper" },
+          { id: "m13q2", q: "If the numerator is greater than the denominator, it is called a ______ fraction[cite: 243].", type: "select", options: ["improper", "proper", "equivalent"], ans: "improper" },
+          { id: "m13q3", q: "Circle the proper fraction among 1/5, 3/2, 4/7, 7/5[cite: 243].", type: "select", options: ["1/5 and 4/7", "3/2", "7/5"], ans: "1/5 and 4/7" },
+          { id: "m13q4", q: "What is the decimal form of 12/10?[cite: 244]", type: "select", options: ["1.2", "0.12", "12.0"], ans: "1.2" },
+          { id: "m13q5", q: "What is the decimal form of 148/100?[cite: 244]", type: "select", options: ["1.48", "14.8", "0.148"], ans: "1.48" }
+        ]
+      },
+      {
+        id: 14, category: "fundamental", title: "14. Basic operations on fractions",
+        desc: "Addition, subtraction, multiplication, and division of fractions[cite: 216].",
+        passage: "Key Note (Page 30-31): When adding like fractions, add the numerators. When multiplying fractions, multiply numerators together and denominators together.",
+        questionPool: [
+          { id: "m14q1", q: "Evaluate: 3/7 + 2/7 = ?[cite: 245]", type: "select", options: ["5/7", "1/7", "5/14"], ans: "5/7" },
+          { id: "m14q2", q: "Evaluate: 3/5 - 1/5 = ?[cite: 245]", type: "select", options: ["2/5", "4/5", "2/10"], ans: "2/5" },
+          { id: "m14q3", q: "Evaluate: 2/5 × 3/6 = ?[cite: 246]", type: "select", options: ["1/5", "6/30", "5/11"], ans: "1/5" },
+          { id: "m14q4", q: "Evaluate: 4/9 ÷ 8/6 = ?[cite: 246]", type: "select", options: ["1/3", "32/54", "2/3"], ans: "1/3" },
+          { id: "m14q5", q: "Evaluate: 5/11 × 77/10 = ?[cite: 246]", type: "select", options: ["7/2", "35/110", "11/2"], ans: "7/2" }
+        ]
+      },
+      {
+        id: 15, category: "fundamental", title: "15. Measures",
+        desc: "Converting units of length, weight, and capacity[cite: 216].",
+        passage: "Key Note (Page 32): 1 cm = 10 mm, 1 m = 100 cm, 1 kg = 1000 g, 1 litre = 1000 ml.",
+        questionPool: [
+          { id: "m15q1", q: "Fill in the blank: 80 mm = ______ cm[cite: 247]", type: "select", options: ["8", "80", "0.8"], ans: "8" },
+          { id: "m15q2", q: "Fill in the blank: 1000 mm = ______ m[cite: 247]", type: "select", options: ["1", "10", "100"], ans: "1" },
+          { id: "m15q3", q: "Fill in the blank: 1000 mg = ______ g[cite: 247]", type: "select", options: ["1", "10", "100"], ans: "1" },
+          { id: "m15q4", q: "Fill in the blank: 1000 ml = ______ l[cite: 247]", type: "select", options: ["1", "10", "100"], ans: "1" },
+          { id: "m15q5", q: "Fill in the blank: 4000 mg = ______ g[cite: 247]", type: "select", options: ["4", "40", "400"], ans: "4" }
+        ]
+      },
+
+      // --- Part 2: Grade Level Concepts (16–25) ---
+      {
+        id: 16, category: "grade", title: "16. Rational numbers",
+        desc: "Definition of rational numbers, representation on number line[cite: 251].",
+        passage: "Key Note (Page 37): A rational number is represented in the form p/q where q ≠ 0. The collection of all rational numbers is denoted by Q. '0' is a rational number.",
+        questionPool: [
+          { id: "m16q1", q: "A rational number is represented in the form of what?[cite: 252]", type: "select", options: ["p/q (where q ≠ 0)", "p × q", "p + q"], ans: "p/q (where q ≠ 0)" },
+          { id: "m16q2", q: "The collection of all rational numbers is denoted by:[cite: 252]", type: "select", options: ["Q", "N", "W", "Z"], ans: "Q" },
+          { id: "m16q3", q: "What is the rational form of 0.25?[cite: 252]", type: "select", options: ["1/4", "1/2", "3/4"], ans: "1/4" },
+          { id: "m16q4", q: "What is the rational form of 1.5?[cite: 252]", type: "select", options: ["3/2", "5/10", "1/5"], ans: "3/2" },
+          { id: "m16q5", q: "Is '0' a rational number?[cite: 252]", type: "select", options: ["Yes", "No", "Cannot be determined"], ans: "Yes" }
+        ]
+      },
+      {
+        id: 17, category: "grade", title: "17. Properties of rational numbers - I",
+        desc: "Closure, commutative, associative, and identity properties[cite: 251].",
+        passage: "Key Note (Page 38-39): Rational numbers satisfy commutative, associative, and identity properties under addition and multiplication.",
+        questionPool: [
+          { id: "m17q1", q: "Name the property: (-2/13) + 0 = 0 + (-2/13) = -2/13[cite: 253]", type: "select", options: ["Additive Identity", "Commutative Property", "Closure Property"], ans: "Additive Identity" },
+          { id: "m17q2", q: "Name the property: 2/9 + 4/9 = 4/9 + 2/9[cite: 253]", type: "select", options: ["Commutative Property", "Associative Property", "Inverse Property"], ans: "Commutative Property" },
+          { id: "m17q3", q: "Name the property: a + (b + c) = (a + b) + c[cite: 253]", type: "select", options: ["Associative Property", "Commutative Property", "Closure Property"], ans: "Associative Property" },
+          { id: "m17q4", q: "Name the property: 5/9 × 9/5 = 1[cite: 253]", type: "select", options: ["Multiplicative Inverse", "Additive Inverse", "Identity Property"], ans: "Multiplicative Inverse" },
+          { id: "m17q5", q: "Name the property: 2/3 + (-2/3) = 0[cite: 254]", type: "select", options: ["Additive Inverse", "Multiplicative Inverse", "Identity Property"], ans: "Additive Inverse" }
+        ]
+      },
+      {
+        id: 18, category: "grade", title: "18. Square and square root",
+        desc: "Finding square roots using prime factorization[cite: 251].",
+        passage: "Key Note (Page 40): Square roots can be found by prime factorization and grouping identical factors in pairs.",
+        questionPool: [
+          { id: "m18q1", q: "Find the square root of 2 × 2 × 5 × 5[cite: 255]", type: "select", options: ["10", "20", "25"], ans: "10" },
+          { id: "m18q2", q: "Find the square root of 9/64[cite: 255]", type: "select", options: ["3/8", "9/8", "3/16"], ans: "3/8" },
+          { id: "m18q3", q: "Find the square root of 36 through prime factorization[cite: 255].", type: "select", options: ["6", "9", "12"], ans: "6" },
+          { id: "m18q4", q: "Find the square root of 144[cite: 255].", type: "select", options: ["12", "14", "16"], ans: "12" },
+          { id: "m18q5", q: "Find the square root of 36 × 81[cite: 255].", type: "select", options: ["54", "36", "48"], ans: "54" }
+        ]
+      },
+      {
+        id: 19, category: "grade", title: "19. Cube and cube root",
+        desc: "Cubes, cube roots, and exponent laws[cite: 251].",
+        passage: "Key Note (Page 41): A cube root groups factors in triplets. Exponent rule: a^m ÷ a^n = a^(m-n).",
+        questionPool: [
+          { id: "m19q1", q: "Find the cube root of 216[cite: 256].", type: "select", options: ["6", "8", "4"], ans: "6" },
+          { id: "m19q2", q: "Find the cube root of 8 × 64[cite: 256].", type: "select", options: ["16", "32", "8"], ans: "16" },
+          { id: "m19q3", q: "Find the value of (-2)^5 ÷ (-2)^(-3)[cite: 256].", type: "select", options: ["(-2)^8", "(-2)^2", "(-2)^(-2)"], ans: "(-2)^8" },
+          { id: "m19q4", q: "Find the value of (-4)^8 ÷ (-4)^5[cite: 256].", type: "select", options: ["(-4)^3", "(-4)^13", "(-4)^2"], ans: "(-4)^3" },
+          { id: "m19q5", q: "Find the cube root of 64.", type: "select", options: ["4", "8", "6"], ans: "4" }
+        ]
+      },
+      {
+        id: 20, category: "grade", title: "20. Circle and its parts",
+        desc: "Radius, diameter, chord, sector, and circle properties[cite: 251].",
+        passage: "Key Note (Page 42): The longest chord of a circle is its diameter. Diameter is twice the radius (d = 2r). The central angle of a circle is 360°.",
+        questionPool: [
+          { id: "m20q1", q: "The longest chord of a circle is called its what?[cite: 257]", type: "select", options: ["Diameter", "Radius", "Arc"], ans: "Diameter" },
+          { id: "m20q2", q: "The radius of a circle with a diameter of 24 cm is:[cite: 257]", type: "select", options: ["12 cm", "48 cm", "6 cm"], ans: "12 cm" },
+          { id: "m20q3", q: "The diameter of a circle with a radius of 10 cm is:[cite: 257]", type: "select", options: ["20 cm", "5 cm", "100 cm"], ans: "20 cm" },
+          { id: "m20q4", q: "What is the central angle of a circle?[cite: 257]", type: "select", options: ["360°", "180°", "90°"], ans: "360°" },
+          { id: "m20q5", q: "The central angle of each sector of a circle is:[cite: 257]", type: "select", options: ["360°", "180°", "90°"], ans: "360°" }
+        ]
+      },
+      {
+        id: 21, category: "grade", title: "21. Three dimensional shapes & Algebra",
+        desc: "Faces, edges, vertices of 3D shapes and basic algebraic concepts[cite: 251].",
+        passage: "Key Note (Page 44–45): A cube has 6 faces, 12 edges, and 8 vertices. The degree of a polynomial is the highest power of its variable.",
+        questionPool: [
+          { id: "m21q1", q: "A cube has how many faces?[cite: 262]", type: "select", options: ["6", "8", "12"], ans: "6" },
+          { id: "m21q2", q: "What is the coefficient of xy^2 in 5xy^2 + 7x^2y?[cite: 259]", type: "select", options: ["5", "7", "xy"], ans: "5" },
+          { id: "m21q3", q: "What is the degree of the polynomial 4x^4 - 3x^2 + 5x - 7?[cite: 259]", type: "select", options: ["4", "2", "1"], ans: "4" },
+          { id: "m21q4", q: "What is the degree of the polynomial x^5 + 1?[cite: 259]", type: "select", options: ["5", "1", "6"], ans: "5" },
+          { id: "m21q5", q: "Classify 100 as a monomial, binomial, or trinomial[cite: 259].", type: "select", options: ["Monomial", "Binomial", "Trinomial"], ans: "Monomial" }
+        ]
+      },
+      {
+        id: 22, category: "grade", title: "22. Algebra - Basic operations",
+        desc: "Addition, subtraction, multiplication, and division of algebraic expressions[cite: 251].",
+        passage: "Key Note (Page 46): Only like terms can be added or subtracted. Add exponents when multiplying terms with the same base.",
+        questionPool: [
+          { id: "m22q1", q: "Add: (12m^2 + 9m + 5) + (4m^2 - 7m + 10)[cite: 260]", type: "select", options: ["16m^2 + 2m + 15", "16m^2 + 16m + 15", "8m^2 + 2m + 5"], ans: "16m^2 + 2m + 15" },
+          { id: "m22q2", q: "Multiply: (2x - 3)(4x - 5)[cite: 260]", type: "select", options: ["8x^2 - 22x + 15", "8x^2 - 10x + 15", "8x^2 + 22x + 15"], ans: "8x^2 - 22x + 15" },
+          { id: "m22q3", q: "Divide: (35a^4 + 14a^2) ÷ (7a^2)[cite: 260]", type: "select", options: ["5a^2 + 2", "5a^2 + 7", "7a^2 + 2"], ans: "5a^2 + 2" },
+          { id: "m22q4", q: "Add: (8a^2 - 12a + 9) + (5a^2 + 4a - 4)[cite: 260]", type: "select", options: ["13a^2 - 8a + 5", "13a^2 + 8a + 5", "3a^2 - 8a + 5"], ans: "13a^2 - 8a + 5" },
+          { id: "m22q5", q: "Subtract: (5x^2 - 7x + 12) - (3x^2 + 4x + 6)[cite: 260]", type: "select", options: ["2x^2 - 11x + 6", "2x^2 + 11x + 6", "8x^2 - 3x + 18"], ans: "2x^2 - 11x + 6" }
+        ]
+      },
+      {
+        id: 23, category: "grade", title: "23. Algebraic identities & Factorisation",
+        desc: "Algebraic identities and factoring quadratic expressions[cite: 251].",
+        passage: "Key Note (Page 48–49): (a + b)^2 = a^2 + 2ab + b^2 and (a - b)^2 = a^2 - 2ab + b^2 are fundamental algebraic identities.",
+        questionPool: [
+          { id: "m23q1", q: "What is the expansion of (4x - 3y)^2?[cite: 273]", type: "select", options: ["16x^2 - 24xy + 9y^2", "16x^2 + 24xy + 9y^2", "16x^2 - 9y^2"], ans: "16x^2 - 24xy + 9y^2" },
+          { id: "m23q2", q: "Factorise: x^2 + 17x + 72[cite: 273]", type: "select", options: ["(x + 9)(x + 8)", "(x - 9)(x - 8)", "(x + 9)(x - 8)"], ans: "(x + 9)(x + 8)" },
+          { id: "m23q3", q: "Factorise using identities: 49a^2 + 70ab + 25b^2[cite: 264]", type: "select", options: ["(7a + 5b)^2", "(7a - 5b)^2", "(7a + 5b)(7a - 5b)"], ans: "(7a + 5b)^2" },
+          { id: "m23q4", q: "Factorise: x^2 + 15x + 36[cite: 264]", type: "select", options: ["(x + 12)(x + 3)", "(x + 9)(x + 4)", "(x + 6)(x + 6)"], ans: "(x + 12)(x + 3)" },
+          { id: "m23q5", q: "Factorise by taking common factors: 5l^3mn^2 - 35lm^2n + 15l^2mn[cite: 264]", type: "select", options: ["5lmn(l^2n - 7m + 3l)", "5lm(ln - 7)", "5(l^3 - 7m)"], ans: "5lmn(l^2n - 7m + 3l)" }
+        ]
+      },
+      {
+        id: 24, category: "grade", title: "24. Pythagorean theorem & Triangle lines",
+        desc: "Right-angled triangle hypotenuse, Pythagorean theorem, and triangle concurrency points[cite: 251].",
+        passage: "Key Note (Page 52–53): In a right-angled triangle, the square of the hypotenuse equals the sum of squares of the other two sides (AC^2 = AB^2 + BC^2).",
+        questionPool: [
+          { id: "m24q1", q: "Find the hypotenuse of a right-angled triangle with sides 9 cm and 12 cm[cite: 267].", type: "select", options: ["15 cm", "21 cm", "10 cm"], ans: "15 cm" },
+          { id: "m24q2", q: "Find the hypotenuse of a right-angled triangle with sides 15 cm and 20 cm[cite: 273].", type: "select", options: ["25 cm", "35 cm", "30 cm"], ans: "25 cm" },
+          { id: "m24q3", q: "The point of concurrence of the three medians in a triangle is called its:[cite: 268]", type: "select", options: ["Centroid", "Circumcentre", "Orthocentre"], ans: "Centroid" },
+          { id: "m24q4", q: "The point of concurrence of the three altitudes in a triangle is called its:[cite: 268]", type: "select", options: ["Orthocentre", "Incentre", "Centroid"], ans: "Orthocentre" },
+          { id: "m24q5", q: "The circumcentre of a triangle is denoted by which letter?[cite: 268]", type: "select", options: ["S", "G", "O", "I"], ans: "S" }
+        ]
+      },
+      {
+        id: 25, category: "grade", title: "25. Mensuration and Statistics",
+        desc: "Area of quadrilaterals, parallelograms, rhombuses, and statistical range[cite: 251].",
+        passage: "Key Note (Page 54–58): Area of parallelogram = b × h. Area of quadrilateral = ½ × d × (h₁ + h₂). Range is the difference between the largest and smallest values in a data set.",
+        questionPool: [
+          { id: "m25q1", q: "If b = 15 cm and h = 8 cm of a parallelogram, find its area[cite: 273].", type: "select", options: ["120 sq.cm", "23 sq.cm", "7 sq.cm"], ans: "120 sq.cm" },
+          { id: "m25q2", q: "If d = 12 cm, h₁ = 8 cm and h₂ = 6 cm of a quadrilateral, find its area[cite: 273].", type: "select", options: ["84 sq.cm", "48 sq.cm", "72 sq.cm"], ans: "84 sq.cm" },
+          { id: "m25q3", q: "If d₁ = 8 cm and d₂ = 5 cm of a rhombus, find its area[cite: 273].", type: "select", options: ["20 sq.cm", "40 sq.cm", "13 sq.cm"], ans: "20 sq.cm" },
+          { id: "m25q4", q: "If 7, 9, 12, 14, 19 and 22 are the data, then range is[cite: 273]:", type: "select", options: ["15", "22", "7"], ans: "15" },
+          { id: "m25q5", q: "If 3, 5, 15, 10, 20 and 18 are the data, then range is[cite: 272]:", type: "select", options: ["17", "20", "3"], ans: "17" }
+        ]
+      }
+    ];
+
+    // ============================================================================
+    // State Management & LocalStorage Engine
+    // ============================================================================
+    const STORAGE_KEY_PROFILES = "thiran_maths_9_em_profiles_v1";
+    const STORAGE_KEY_ACTIVE = "thiran_maths_9_em_active_key_v1";
+
+    let allProfiles = {};
+    let currentProfileKey = null;
+    let currentModuleId = 1;
+    let activeQuestionSets = {};
+    let timerInterval = null;
+
+    function loadProfilesFromStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_PROFILES);
+        allProfiles = raw ? JSON.parse(raw) : {};
+      } catch (e) {
+        allProfiles = {};
+      }
+    }
+
+    function saveProfilesToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY_PROFILES, JSON.stringify(allProfiles));
+        if (currentProfileKey) {
+          localStorage.setItem(STORAGE_KEY_ACTIVE, currentProfileKey);
+        } else {
+          localStorage.removeItem(STORAGE_KEY_ACTIVE);
+        }
+      } catch (e) {
+        console.error("Storage save error:", e);
+      }
+    }
+
+    function makeProfileKey(roll, school) {
+      return `${roll.trim().toLowerCase()}__${school.trim().toLowerCase()}`;
+    }
+
+    function formatDateTa(isoStr) {
+      if (!isoStr) return "--";
+      const d = new Date(isoStr);
+      if (isNaN(d.getTime())) return isoStr;
+      return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+    }
+
+    function formatDuration(totalSeconds) {
+      const sec = Math.max(0, Math.floor(totalSeconds || 0));
+      const hrs = Math.floor(sec / 3600);
+      const mins = Math.floor((sec % 3600) / 60);
+      const remSec = sec % 60;
+      if (hrs > 0) return `${hrs}h ${mins}m ${remSec}s`;
+      return `${mins}m ${remSec}s`;
+    }
+
+    // ============================================================================
+    // Authentication / Modal Logic
+    // ============================================================================
+    function switchAuthTab(mode) {
+      const loginForm = document.getElementById("login-form");
+      const regForm = document.getElementById("register-form");
+      const loginBtn = document.getElementById("tab-login-btn");
+      const regBtn = document.getElementById("tab-reg-btn");
+      const errBox = document.getElementById("auth-error");
+      errBox.style.display = "none";
+
+      if (mode === "login") {
+        loginForm.style.display = "block";
+        regForm.style.display = "none";
+        loginBtn.classList.add("active");
+        regBtn.classList.remove("active");
+        renderSavedProfilesList();
+      } else {
+        loginForm.style.display = "none";
+        regForm.style.display = "block";
+        loginBtn.classList.remove("active");
+        regBtn.classList.add("active");
+      }
+    }
+
+    function showAuthError(msg) {
+      const errBox = document.getElementById("auth-error");
+      errBox.textContent = msg;
+      errBox.style.display = "block";
+    }
+
+    function renderSavedProfilesList() {
+      const container = document.getElementById("saved-profiles-container");
+      const listEl = document.getElementById("saved-profiles-list");
+      const keys = Object.keys(allProfiles);
+
+      if (keys.length === 0) {
+        container.style.display = "none";
+        return;
+      }
+
+      container.style.display = "block";
+      listEl.innerHTML = "";
+
+      keys.forEach(key => {
+        const p = allProfiles[key];
+        const doneCount = Object.values(p.progress || {}).filter(m => m && m.completed).length;
+        const pill = document.createElement("div");
+        pill.className = "profile-pill";
+        pill.onclick = () => activateStudentSession(key);
+        pill.innerHTML = `
+          <div class="profile-pill-info">
+            <strong>${escapeHtml(p.name)}</strong> (${escapeHtml(p.studentClass)} - ${escapeHtml(p.section)})
+            <div style="font-size:0.76rem; color:#64748b;">Roll: ${escapeHtml(p.roll)} • ${escapeHtml(p.school)}</div>
+          </div>
+          <div class="profile-pill-meta">⭐ ${doneCount} / 25 Modules &rarr;</div>
+        `;
+        listEl.appendChild(pill);
+      });
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const roll = document.getElementById("login-roll").value.trim();
+      const school = document.getElementById("login-school").value.trim();
+      const key = makeProfileKey(roll, school);
+
+      if (!allProfiles[key]) {
+        showAuthError("No profile found with this Roll Number and School Name. Please use 'New Student Registration' to register.");
+        return;
+      }
+      activateStudentSession(key);
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById("reg-name").value.trim();
+      const studentClass = document.getElementById("reg-class").value.trim();
+      const section = document.getElementById("reg-sec").value.trim();
+      const roll = document.getElementById("reg-roll").value.trim();
+      const school = document.getElementById("reg-school").value.trim();
+
+      if (!name || !roll || !school) {
+        showAuthError("Please fill out all required fields.");
+        return;
+      }
+
+      const key = makeProfileKey(roll, school);
+      const nowIso = new Date().toISOString();
+
+      if (!allProfiles[key]) {
+        allProfiles[key] = {
+          name,
+          studentClass,
+          section,
+          roll,
+          school,
+          createdAt: nowIso,
+          lastActiveAt: nowIso,
+          timeSpentSeconds: 0,
+          lastModuleId: 1,
+          progress: {}
+        };
+      } else {
+        allProfiles[key].name = name;
+        allProfiles[key].studentClass = studentClass;
+        allProfiles[key].section = section;
+        allProfiles[key].lastActiveAt = nowIso;
+      }
+
+      saveProfilesToStorage();
+      activateStudentSession(key);
+    }
+
+    function activateStudentSession(key) {
+      currentProfileKey = key;
+      const profile = allProfiles[currentProfileKey];
+      profile.lastActiveAt = new Date().toISOString();
+      saveProfilesToStorage();
+
+      document.getElementById("welcome-screen").style.display = "none";
+      document.getElementById("header-student-info").innerHTML =
+        `👤 <strong>${escapeHtml(profile.name)}</strong> (${escapeHtml(profile.studentClass)} '${escapeHtml(profile.section)}' • Roll: ${escapeHtml(profile.roll)} • ${escapeHtml(profile.school)})`;
+
+      buildAllModulesDOM();
+      renderSidebarNav();
+      updateHeaderProgress();
+      startStudyTimer();
+
+      const resumeMod = profile.lastModuleId || 1;
+      openModule(resumeMod);
+    }
+
+    function logoutCurrentStudent() {
+      stopStudyTimer();
+      currentProfileKey = null;
+      localStorage.removeItem(STORAGE_KEY_ACTIVE);
+      renderSavedProfilesList();
+      document.getElementById("welcome-screen").style.display = "flex";
+    }
+
+    function resetCurrentStudent() {
+      if (!currentProfileKey || !allProfiles[currentProfileKey]) return;
+      const confirmReset = confirm("Are you sure you want to reset all your progress and scores for all 25 modules?");
+      if (!confirmReset) return;
+
+      const p = allProfiles[currentProfileKey];
+      p.progress = {};
+      p.timeSpentSeconds = 0;
+      p.createdAt = new Date().toISOString();
+      p.lastActiveAt = new Date().toISOString();
+      p.lastModuleId = 1;
+      activeQuestionSets = {};
+      saveProfilesToStorage();
+
+      buildAllModulesDOM();
+      renderSidebarNav();
+      updateHeaderProgress();
+      openModule(1);
+    }
+
+    // ============================================================================
+    // Study Timer & Progress Bar
+    // ============================================================================
+    function startStudyTimer() {
+      stopStudyTimer();
+      timerInterval = setInterval(() => {
+        if (!currentProfileKey || !allProfiles[currentProfileKey]) return;
+        const p = allProfiles[currentProfileKey];
+        p.timeSpentSeconds = (p.timeSpentSeconds || 0) + 1;
+        p.lastActiveAt = new Date().toISOString();
+        document.getElementById("hdr-timer").textContent = formatDuration(p.timeSpentSeconds);
+        if (p.timeSpentSeconds % 5 === 0) {
+          saveProfilesToStorage();
+        }
+      }, 1000);
+    }
+
+    function stopStudyTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function updateHeaderProgress() {
+      if (!currentProfileKey || !allProfiles[currentProfileKey]) return;
+      const p = allProfiles[currentProfileKey];
+      const prog = p.progress || {};
+      let completedCount = 0;
+
+      MODULES_DATA.forEach(m => {
+        if (prog[m.id] && prog[m.id].completed) completedCount++;
+      });
+
+      const pct = Math.round((completedCount / MODULES_DATA.length) * 100);
+      document.getElementById("hdr-modules").textContent = `${completedCount} / ${MODULES_DATA.length}`;
+      document.getElementById("hdr-timer").textContent = formatDuration(p.timeSpentSeconds || 0);
+      document.getElementById("hdr-percent").textContent = `${pct}%`;
+      document.getElementById("hdr-bar").style.width = `${pct}%`;
+    }
+
+    // ============================================================================
+    // Sidebar & Module UI Engine
+    // ============================================================================
+    function renderSidebarNav() {
+      const fundContainer = document.getElementById("nav-list-fundamental");
+      const gradeContainer = document.getElementById("nav-list-grade");
+      fundContainer.innerHTML = "";
+      gradeContainer.innerHTML = "";
+
+      const prog = (currentProfileKey && allProfiles[currentProfileKey]?.progress) || {};
+
+      MODULES_DATA.forEach(mod => {
+        const isDone = prog[mod.id] && prog[mod.id].completed;
+        const btn = document.createElement("button");
+        btn.className = "nav-btn" + (currentModuleId === mod.id ? " active" : "");
+        btn.id = `nav-btn-${mod.id}`;
+        btn.onclick = () => openModule(mod.id);
+        btn.innerHTML = `
+          <span>${escapeHtml(mod.title)}</span>
+          <span class="star ${isDone ? "earned" : ""}" id="nav-star-${mod.id}">★</span>
+        `;
+        if (mod.category === "fundamental") {
+          fundContainer.appendChild(btn);
+        } else {
+          gradeContainer.appendChild(btn);
+        }
+      });
+    }
+
+    function pickQuestionsForModule(mod, shuffle = false) {
+      const pool = [...mod.questionPool];
+      if (shuffle) {
+        for (let i = pool.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [pool[i], pool[j]] = [pool[j], pool[i]];
+        }
+      }
+      const count = Math.min(QUESTIONS_PER_MODULE, pool.length);
+      return pool.slice(0, count);
+    }
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function buildAllModulesDOM() {
+      const container = document.getElementById("modules-container");
+      container.innerHTML = "";
+
+      MODULES_DATA.forEach(mod => {
+        if (!activeQuestionSets[mod.id]) {
+          activeQuestionSets[mod.id] = pickQuestionsForModule(mod, false);
+        }
+        const card = document.createElement("div");
+        card.className = "module-card";
+        card.id = `mod-card-${mod.id}`;
+        container.appendChild(card);
+        renderSingleModuleCard(mod.id);
+      });
+    }
+
+    function renderSingleModuleCard(modId) {
+      const mod = MODULES_DATA.find(m => m.id === modId);
+      const card = document.getElementById(`mod-card-${modId}`);
+      if (!mod || !card) return;
+
+      const questions = activeQuestionSets[modId] || pickQuestionsForModule(mod, false);
+      const prog = (currentProfileKey && allProfiles[currentProfileKey]?.progress?.[modId]) || null;
+
+      const badgeHtml = mod.category === "grade"
+        ? `<span class="grade-tag">Part 2: Grade Level Concept</span>`
+        : `<span class="set-badge">Part 1: Fundamental Concept</span>`;
+
+      const statusBadge = prog && prog.completed
+        ? `<span class="badge-done">✅ Completed (${prog.score}/${prog.total} • ${prog.date})</span>`
+        : `<span class="badge-pending">⏳ Practice Pending</span>`;
+
+      let passageHtml = "";
+      if (mod.passage) {
+        passageHtml = `<div class="passage"><strong>📖 Key Note / Explanation:</strong><br>${escapeHtml(mod.passage).replace(/\n/g, "<br>")}</div>`;
+      }
+
+      let qListHtml = "";
+      questions.forEach((item, idx) => {
+        const shuffledOpts = shuffleArray(item.options);
+        const optionsHtml = shuffledOpts
+          .map(opt => `<option value="${escapeHtml(opt)}">${escapeHtml(opt)}</option>`)
+          .join("");
+
+        qListHtml += `
+          <div class="question-block">
+            <label class="question-title" for="input-${mod.id}-${item.id}">
+              ${idx + 1}. ${escapeHtml(item.q)}
+            </label>
+            <select class="q-input" id="input-${mod.id}-${item.id}">
+              <option value="">-- Select the correct answer --</option>
+              ${optionsHtml}
+            </select>
+          </div>
+        `;
+      });
+
+      const nextModId = mod.id < MODULES_DATA.length ? mod.id + 1 : null;
+      const nextBtnHtml = nextModId
+        ? `<button type="button" class="btn-secondary" onclick="openModule(${nextModId})">Next Module (${nextModId}) &rarr;</button>`
+        : `<button type="button" class="btn-secondary" onclick="showCertificate()">🎓 View Certificate &rarr;</button>`;
+
+      card.innerHTML = `
+        <div class="mod-header-row">
+          <h2>${escapeHtml(mod.title)}</h2>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            ${badgeHtml}
+            ${statusBadge}
+          </div>
+        </div>
+        <p style="color:var(--muted); margin-top:0; margin-bottom:14px; font-size:0.9rem;">${escapeHtml(mod.desc)}</p>
+        ${passageHtml}
+        <div id="q-wrap-${mod.id}">
+          ${qListHtml}
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:10px;">
+          <button type="button" class="btn-check" onclick="checkModuleAnswers(${mod.id})">✔️ Check Answers</button>
+          <button type="button" class="btn-shuffle" onclick="shuffleModuleQuestions(${mod.id})">🔀 Shuffle Questions</button>
+          ${nextBtnHtml}
+        </div>
+        <div class="feedback" id="feedback-${mod.id}"></div>
+      `;
+    }
+
+    function openModule(modId) {
+      currentModuleId = modId;
+      if (currentProfileKey && allProfiles[currentProfileKey]) {
+        allProfiles[currentProfileKey].lastModuleId = modId;
+        saveProfilesToStorage();
+      }
+
+      document.querySelectorAll("#modules-container .module-card").forEach(el => el.classList.remove("active"));
+      document.getElementById("cert-view").classList.remove("active");
+
+      const targetCard = document.getElementById(`mod-card-${modId}`);
+      if (targetCard) targetCard.classList.add("active");
+
+      document.querySelectorAll(".sidebar .nav-btn").forEach(btn => btn.classList.remove("active"));
+      const activeNavBtn = document.getElementById(`nav-btn-${modId}`);
+      if (activeNavBtn) activeNavBtn.classList.add("active");
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function shuffleModuleQuestions(modId) {
+      const mod = MODULES_DATA.find(m => m.id === modId);
+      if (!mod) return;
+      activeQuestionSets[modId] = pickQuestionsForModule(mod, true);
+      renderSingleModuleCard(modId);
+    }
+
+    function checkModuleAnswers(modId) {
+      const mod = MODULES_DATA.find(m => m.id === modId);
+      if (!mod) return;
+      const questions = activeQuestionSets[modId] || [];
+      let correctCount = 0;
+      let unansweredCount = 0;
+
+      questions.forEach(item => {
+        const inputEl = document.getElementById(`input-${mod.id}-${item.id}`);
+        if (!inputEl) return;
+        const val = inputEl.value.trim();
+        inputEl.classList.remove("correct-input", "wrong-input");
+
+        if (!val) {
+          unansweredCount++;
+          inputEl.classList.add("wrong-input");
+        } else if (val === item.ans) {
+          correctCount++;
+          inputEl.classList.add("correct-input");
+        } else {
+          inputEl.classList.add("wrong-input");
+        }
+      });
+
+      const fb = document.getElementById(`feedback-${mod.id}`);
+      fb.style.display = "block";
+
+      if (unansweredCount > 0) {
+        fb.style.background = "var(--warning-bg)";
+        fb.style.color = "var(--warning)";
+        fb.textContent = `⚠️ Please select answers for all ${questions.length} questions! (Current score: ${correctCount}/${questions.length})`;
+        return;
+      }
+
+      const todayStr = formatDateTa(new Date().toISOString());
+
+      if (correctCount === questions.length) {
+        fb.style.background = "var(--success-bg)";
+        fb.style.color = "var(--success)";
+        fb.innerHTML = `🎉 Excellent! You got ${correctCount} / ${questions.length} correct and earned a Star (★) for this module!`;
+
+        if (currentProfileKey && allProfiles[currentProfileKey]) {
+          const p = allProfiles[currentProfileKey];
+          if (!p.progress) p.progress = {};
+          p.progress[mod.id] = {
+            completed: true,
+            score: correctCount,
+            total: questions.length,
+            date: todayStr
+          };
+          p.lastActiveAt = new Date().toISOString();
+          saveProfilesToStorage();
+        }
+
+        const starEl = document.getElementById(`nav-star-${mod.id}`);
+        if (starEl) starEl.classList.add("earned");
+        updateHeaderProgress();
+      } else {
+        fb.style.background = "var(--danger-bg)";
+        fb.style.color = "var(--danger)";
+        fb.innerHTML = `💡 You got ${correctCount} / ${questions.length} correct. Review the highlighted items and try again! (Get 100% to earn the star)`;
+
+        if (currentProfileKey && allProfiles[currentProfileKey]) {
+          const p = allProfiles[currentProfileKey];
+          if (!p.progress) p.progress = {};
+          if (!p.progress[mod.id]?.completed) {
+            p.progress[mod.id] = {
+              completed: false,
+              score: correctCount,
+              total: questions.length,
+              date: todayStr
+            };
+            saveProfilesToStorage();
+          }
+        }
+      }
+    }
+
+    // ============================================================================
+    // Certificate & Daily Work Log Rendering
+    // ============================================================================
+    function showCertificate() {
+      document.querySelectorAll("#modules-container .module-card").forEach(el => el.classList.remove("active"));
+      document.querySelectorAll(".sidebar .nav-btn").forEach(btn => btn.classList.remove("active"));
+      document.getElementById("btn-cert-nav").classList.add("active");
+
+      const certView = document.getElementById("cert-view");
+      certView.classList.add("active");
+
+      if (!currentProfileKey || !allProfiles[currentProfileKey]) return;
+      const p = allProfiles[currentProfileKey];
+      const prog = p.progress || {};
+
+      let completedCount = 0;
+      MODULES_DATA.forEach(m => {
+        if (prog[m.id] && prog[m.id].completed) completedCount++;
+      });
+      const pct = Math.round((completedCount / MODULES_DATA.length) * 100);
+
+      document.getElementById("cert-name").textContent = p.name;
+      document.getElementById("cert-meta").innerHTML =
+        `Class: <strong>${escapeHtml(p.studentClass)} - '${escapeHtml(p.section)}'</strong> • Roll No: <strong>${escapeHtml(p.roll)}</strong><br>School: <strong>${escapeHtml(p.school)}</strong>`;
+
+      document.getElementById("cert-mastery").textContent = `${pct}%`;
+      document.getElementById("cert-duration").textContent = formatDuration(p.timeSpentSeconds || 0);
+      document.getElementById("cert-mod-count").textContent = `${completedCount} / ${MODULES_DATA.length}`;
+      document.getElementById("cert-span-dates").textContent =
+        `Started Date: ${formatDateTa(p.createdAt)} | Last Active: ${formatDateTa(p.lastActiveAt)}`;
+
+      const congratsEl = document.getElementById("cert-congrats");
+      if (completedCount === MODULES_DATA.length) {
+        congratsEl.innerHTML =
+          `🌟 <strong>Heartiest Congratulations!</strong> You have successfully completed all 25 Mathematics modules with 100% mastery!`;
+      } else {
+        congratsEl.innerHTML =
+          `👏 You have completed <strong>${completedCount} / 25</strong> modules (${pct}% mastery). Keep practicing to earn all 25 stars!`;
+      }
+
+      const leftTbody = document.getElementById("log-table-left");
+      const rightTbody = document.getElementById("log-table-right");
+      leftTbody.innerHTML = "";
+      rightTbody.innerHTML = "";
+
+      MODULES_DATA.forEach(mod => {
+        const mProg = prog[mod.id];
+        const isDone = mProg && mProg.completed;
+        const statusHtml = isDone
+          ? `<span class="badge-done">★ Completed</span>`
+          : `<span class="badge-pending">Pending</span>`;
+        const scoreText = mProg ? `${mProg.score}/${mProg.total}` : `0/${QUESTIONS_PER_MODULE}`;
+        const dateText = mProg?.date || "--";
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>${escapeHtml(mod.title)}</strong></td>
+          <td>${statusHtml}</td>
+          <td style="font-weight:700;">${scoreText}</td>
+          <td>${dateText}</td>
+        `;
+
+        if (mod.category === "fundamental") {
+          leftTbody.appendChild(tr);
+        } else {
+          rightTbody.appendChild(tr);
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // ============================================================================
+    // A4 PNG Canvas Generator
+    // ============================================================================
+    function downloadA4PortraitSheet() {
+      if (!currentProfileKey || !allProfiles[currentProfileKey]) return;
+      const p = allProfiles[currentProfileKey];
+      const prog = p.progress || {};
+
+      let completedCount = 0;
+      MODULES_DATA.forEach(m => {
+        if (prog[m.id] && prog[m.id].completed) completedCount++;
+      });
+      const pct = Math.round((completedCount / MODULES_DATA.length) * 100);
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 1240;
+      canvas.height = 1754; // A4 @ 150 DPI
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const cx = 45, cy = 40, cw = 1150, ch = 640;
+      const grad = ctx.createRadialGradient(cx + cw / 2, cy + ch / 2, 50, cx + cw / 2, cy + ch / 2, 650);
+      grad.addColorStop(0, "#1e3a8a");
+      grad.addColorStop(0.6, "#0f2557");
+      grad.addColorStop(1, "#071330");
+      ctx.fillStyle = grad;
+      ctx.fillRect(cx, cy, cw, ch);
+
+      ctx.strokeStyle = "#d4af37";
+      ctx.lineWidth = 8;
+      ctx.strokeRect(cx, cy, cw, ch);
+      ctx.strokeStyle = "#fef08a";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(cx + 14, cy + 14, cw - 28, ch - 28);
+
+      ctx.textAlign = "center";
+
+      ctx.fillStyle = "#fde047";
+      ctx.font = "bold 20px 'Segoe UI', sans-serif";
+      ctx.fillText("🏆 Department of School Education • Govt of Tamil Nadu (THIRAN - Class 9 Maths) 🏆", cx + cw / 2, cy + 58);
+
+      ctx.fillStyle = "#fffbeb";
+      ctx.font = "900 38px 'Segoe UI', sans-serif";
+      ctx.fillText("Certificate of Mastery & Completion", cx + cw / 2, cy + 112);
+
+      ctx.fillStyle = "#fde68a";
+      ctx.font = "18px 'Segoe UI', sans-serif";
+      ctx.fillText("This certificate is proudly presented to", cx + cw / 2, cy + 150);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "900 40px 'Segoe UI', sans-serif";
+      ctx.fillText(p.name, cx + cw / 2, cy + 205);
+
+      ctx.strokeStyle = "#eab308";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(cx + 320, cy + 220);
+      ctx.lineTo(cx + cw - 320, cy + 220);
+      ctx.stroke();
+
+      ctx.fillStyle = "#fef9c3";
+      ctx.font = "bold 21px 'Segoe UI', sans-serif";
+      ctx.fillText(
+        `Class: ${p.studentClass} - '${p.section}'  •  Roll No: ${p.roll}  •  School: ${p.school}`,
+        cx + cw / 2,
+        cy + 262
+      );
+
+      ctx.fillStyle = "rgba(250, 204, 21, 0.16)";
+      ctx.fillRect(cx + 80, cy + 290, cw - 160, 64);
+      ctx.strokeStyle = "#eab308";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(cx + 80, cy + 290, cw - 160, 64);
+
+      ctx.fillStyle = "#fef08a";
+      ctx.font = "bold 18px 'Segoe UI', sans-serif";
+      const bannerMsg = completedCount === MODULES_DATA.length
+        ? "🌟 Congratulations! Completed all 25 Mathematics modules with 100% mastery!"
+        : `👏 Completed ${completedCount} / 25 modules (${pct}% mastery)!`;
+      ctx.fillText(bannerMsg, cx + cw / 2, cy + 329);
+
+      const stats = [
+        { label: "Overall Mastery", val: `${pct}%` },
+        { label: "Total Study Time", val: formatDuration(p.timeSpentSeconds || 0) },
+        { label: "Completed Modules", val: `${completedCount} / 25` }
+      ];
+      const boxW = 290, boxH = 105, gap = 40;
+      const startX = cx + (cw - (boxW * 3 + gap * 2)) / 2;
+      const boxY = cy + 385;
+
+      stats.forEach((st, idx) => {
+        const bx = startX + idx * (boxW + gap);
+        ctx.fillStyle = "#071330";
+        ctx.fillRect(bx, boxY, boxW, boxH);
+        ctx.strokeStyle = "#eab308";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(bx, boxY, boxW, boxH);
+
+        ctx.fillStyle = "#fde68a";
+        ctx.font = "bold 15px 'Segoe UI', sans-serif";
+        ctx.fillText(st.label, bx + boxW / 2, boxY + 36);
+
+        ctx.fillStyle = "#facc15";
+        ctx.font = "900 30px 'Segoe UI', sans-serif";
+        ctx.fillText(st.val, bx + boxW / 2, boxY + 80);
+      });
+
+      ctx.fillStyle = "#fde68a";
+      ctx.font = "16px 'Segoe UI', sans-serif";
+      ctx.fillText(
+        `Started: ${formatDateTa(p.createdAt)}   |   Last Active: ${formatDateTa(p.lastActiveAt)}`,
+        cx + cw / 2,
+        cy + 545
+      );
+
+      ctx.fillStyle = "#facc15";
+      ctx.font = "bold 18px 'Segoe UI', sans-serif";
+      ctx.fillText("✦ DESIGNED BY THIRAVIYA KUMAR G ✦", cx + cw / 2, cy + 600);
+
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#0f2557";
+      ctx.font = "bold 22px 'Segoe UI', sans-serif";
+      ctx.fillText("📅 Daily Work Log ("I Can... I Will..." - 25 Modules)[cite: 215]", 45, 725);
+
+      const fundMods = MODULES_DATA.filter(m => m.category === "fundamental");
+      const gradeMods = MODULES_DATA.filter(m => m.category === "grade");
+
+      drawLogTableColumn(ctx, 45, 745, 560, "Part 1: Fundamental Concepts (1–15)[cite: 214, 216]", fundMods, prog);
+      drawLogTableColumn(ctx, 635, 745, 560, "Part 2: Grade Level Concepts (16–25)[cite: 214, 251]", gradeMods, prog);
+
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#475569";
+      ctx.font = "bold 16px 'Segoe UI', sans-serif";
+      ctx.fillText("THIRAN Class 9 Mathematics (EM) Workbook • Designed by Thiraviya Kumar G", canvas.width / 2, 1715);
+
+      const link = document.createElement("a");
+      const safeName = (p.name || "Student").replace(/[^a-zA-Z0-9]/g, "_");
+      link.download = `THIRAN_Maths_9_EM_Certificate_${safeName}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
+    function drawLogTableColumn(ctx, x, y, w, titleHeader, mods, prog) {
+      const rowH = 54;
+      ctx.fillStyle = "#0f2557";
+      ctx.fillRect(x, y, w, rowH);
+
+      ctx.fillStyle = "#fde047";
+      ctx.font = "bold 15px 'Segoe UI', sans-serif";
+      ctx.fillText(titleHeader, x + 10, y + 33);
+      ctx.fillText("Status", x + 310, y + 33);
+      ctx.fillText("Score", x + 395, y + 33);
+      ctx.fillText("Date", x + 485, y + 33);
+
+      mods.forEach((m, idx) => {
+        const ry = y + (idx + 1) * rowH;
+        ctx.fillStyle = idx % 2 === 0 ? "#f8fafc" : "#ffffff";
+        ctx.fillRect(x, ry, w, rowH);
+
+        ctx.strokeStyle = "#cbd5e1";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(x, ry, w, rowH);
+
+        const mp = prog[m.id];
+        const isDone = mp && mp.completed;
+
+        ctx.fillStyle = "#1e293b";
+        ctx.font = "bold 14px 'Segoe UI', sans-serif";
+        ctx.fillText(m.title.substring(0, 28), x + 10, ry + 32);
+
+        ctx.fillStyle = isDone ? "#16a34a" : "#64748b";
+        ctx.font = "bold 14px 'Segoe UI', sans-serif";
+        ctx.fillText(isDone ? "★ Done" : "Pending", x + 310, ry + 32);
+
+        ctx.fillStyle = "#0f2557";
+        ctx.fillText(mp ? `${mp.score}/${mp.total}` : `0/${QUESTIONS_PER_MODULE}`, x + 410, ry + 32);
+
+        ctx.fillStyle = "#475569";
+        ctx.font = "13px 'Segoe UI', sans-serif";
+        ctx.fillText(mp?.date || "--", x + 475, ry + 32);
+      });
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // ============================================================================
+    // Initialization
+    // ============================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      loadProfilesFromStorage();
+      renderSavedProfilesList();
+
+      const activeKey = localStorage.getItem(STORAGE_KEY_ACTIVE);
+      if (activeKey && allProfiles[activeKey]) {
+        activateStudentSession(activeKey);
+      }
+    });
+  </script>
+</body>
+</html>
